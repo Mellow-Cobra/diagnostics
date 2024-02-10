@@ -34,7 +34,7 @@ class GPUDiagnosticsThread(QRunnable):
     def run(self):
         gpu_diag = list()
         
-        for _ in range(100):
+        for _ in range(100000):
             gpu_diag.append(self.gpu_diag_routine.gpu_diagnostics())
         self.signals.diag_info.emit(gpu_diag)
 
@@ -62,6 +62,7 @@ class FrontPanel(QWidget):
         self.tabs.addTab(self.ssd_diagnostics_tab, "SSD Diagnostics Tab")
         self.tabs.addTab(self.cpu_diagnostics_tab,  "CPU Diagnostics Tab")
         self.tabs.addTab(self.dimm_diagnostics_tab, "DIMM Diagnostics Tab")
+        self.tabs.addTab(self.diagnostics_config_tab, "Diagnostic Utility Configuration Tab")
 
         
 
@@ -97,7 +98,7 @@ class FrontPanel(QWidget):
         """Event handler for running GPU Diagnostics"""
         gpu_diagnostics_thread = GPUDiagnosticsThread()
         self.thread_pool.start(gpu_diagnostics_thread)
-        gpu_diagnostics_thread.signals.diag_info.connect(self.plot_clock_data)
+        gpu_diagnostics_thread.signals.diag_info.connect(self.plot_diag_data)
         
     def plot_diag_data(self, diag_info):
         clock = list()
@@ -112,7 +113,7 @@ class FrontPanel(QWidget):
         ax.plot(clock, '*-')
         self.canvas.draw()
     
-    def plot_temperatue_data(self, diag_info):
+   
 
         
 
