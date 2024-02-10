@@ -99,13 +99,21 @@ class FrontPanel(QWidget):
         self.thread_pool.start(gpu_diagnostics_thread)
         gpu_diagnostics_thread.signals.diag_info.connect(self.plot_clock_data)
         
-    def plot_clock_data(self, diag_info):
+    def plot_diag_data(self, diag_info):
         clock = list()
+        temperature = list()
         for _, data in enumerate(diag_info):
             clock.append(data[0])
+        for _, data in enumerate(diag_info):
+            temperature.append(data[1])
         ax = self.figure.add_subplot(111)
+        ax2 = self.figure.add_subplot(122)
+        ax2.plot(temperature, "*-")
         ax.plot(clock, '*-')
         self.canvas.draw()
+    
+    def plot_temperatue_data(self, diag_info):
+
         
 
 app = QApplication(sys.argv)
