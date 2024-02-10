@@ -20,8 +20,8 @@ class NvidiaDiagnostics:
                 for _, handle in enumerate(self.handles):
                     clock_info = self.nvidia_wrapper.get_clock_info(handle)
                     temperature = self.nvidia_wrapper.get_temperature(handle)
-
-                    return clock_info, temperature
+                    power_info = self.nvidia_wrapper.get_power_info(handle)
+                    return clock_info, temperature, power_info
         except KeyboardInterrupt:
             print("Cleared")
     

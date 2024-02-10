@@ -6,7 +6,7 @@ from typing import List
 
 class Furmark:
 
-    def __init__(self, heights: List , widths: List, iterations: int, msaa_list: List):
+    def __init__(self, heights: List , widths: List, iterations: int = None, msaa_list: List = None):
         """Constructor"""
         self.heights = heights
         self.widths = widths
